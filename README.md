@@ -6,11 +6,7 @@ Include the package in your Portable Code.
 
 # Principle
 
-When filling a list view with items that come from an asynchroneous endpoint, it is often desireable to automatically
-keep up with the seen items and request more when the list is scrolled to a certain point. For this, an `AsyncCollector`
-is provided, extending a standard `ObservableCollection` to provide a way to consume an `IAsyncEnumerable`. This enumerable
-can then take care of paging and request cancellation. In addition, `ContinuousRequestsBehavior` captures a list's item
-appearing events and translates them to requests to that collection.
+When filling a list view with items that come from an asynchroneous endpoint, it is often desireable to automatically keep up with the seen items and request more when the list is scrolled to a certain point. For this, an `AsyncCollector` is provided, extending a standard `ObservableCollection` to provide a way to consume an `IAsyncEnumerable`. This enumerable can then take care of paging and request cancellation. In addition, `ContinuousRequestsBehavior` captures a list's item appearing events and translates them to requests to that collection.
 
 # Usage
 
@@ -32,8 +28,7 @@ private static async IAsyncEnumerable<string> GenerateData([EnumeratorCancellati
 }
 ```
 
-This method provides a batch of items and then *loads* the next items. To connect it to a list view, it will be passed within an
-`AsyncCollector`.
+This method provides a batch of items and then *loads* the next items. To connect it to a list view, it will be passed within an `AsyncCollector`.
 
 ```cs
 List.ItemsSource = new AsyncCollector<string>(GenerateData());
@@ -61,8 +56,7 @@ With this behavior attached, appearing items will be send as requests to the lis
 
 ## Working indicator
 
-The `AsyncCollector` tracks when it is running and publishes that state with the `Working` event. This can be used to indicate loading while
-the underlying enumerator produces more items. A connection can for example be established like so.
+The `AsyncCollector` tracks when it is running and publishes that state with the `Working` event. This can be used to indicate loading while the underlying enumerator produces more items. A connection can for example be established like so.
 
 ```cs
 // Create source with "Working" handler.
@@ -78,8 +72,7 @@ ConsumeApi.xaml.cs](Examples/ConsumeApi.xaml.cs).
 
 ## Replacing a source, disposal
 
-After the collection is no longer needed (the page is unloading or the source is replaced), it should be disposed of properly.
-A simple way to deal with replacing a source is to track the last assigned source and disposing of it.
+After the collection is no longer needed (the page is unloading or the source is replaced), it should be disposed of properly. A simple way to deal with replacing a source is to track the last assigned source and disposing of it.
 
 ```cs
 private void UpdateCaption(object sender, TextChangedEventArgs e)
@@ -96,18 +89,13 @@ private void UpdateCaption(object sender, TextChangedEventArgs e)
 }
 ```
 
-Depending on the lifecycle of your page, a disposal call should also be placed in the `Disappearing` handler to prevent the underlying
-enumerable to keep pending.
+Depending on the lifecycle of your page, a disposal call should also be placed in the `Disappearing` handler to prevent the underlying enumerable to keep pending.
 
-For an example of dealing with updated sources see [UpdateRequest.xaml](Examples/UpdateRequest.xaml) and [
-UpdateRequest.xaml.cs](Examples/UpdateRequest.xaml.cs).
+For an example of dealing with updated sources see [UpdateRequest.xaml](Examples/UpdateRequest.xaml) and [UpdateRequest.xaml.cs](Examples/UpdateRequest.xaml.cs).
 
 ## Synchronization context
 
-Modification of the actual collection, as well as indication of the working status, needs to happen on the main thread. The constructor will
-capture the synchronization context at the time it is invoked. When the collector is created outside of the main thread, the synchronization
-context of the main thread should be captured beforehand and then passed as the constructor's second argument. Usually, construction outside
-of the main thread will not be necessary.
+Modification of the actual collection, as well as indication of the working status, needs to happen on the main thread. The constructor will capture the synchronization context at the time it is invoked. When the collector is created outside of the main thread, the synchronization context of the main thread should be captured beforehand and then passed as the constructor's second argument. Usually, construction outside of the main thread will not be necessary.
 
 ## Further notes
 
