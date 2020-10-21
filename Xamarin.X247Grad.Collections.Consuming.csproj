@@ -1,0 +1,52 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <Title>247GRAD Xamarin Consuming Observable Collection</Title>
+        <Authors>247GRAD</Authors>
+        <Description>This project provides an observable collection that is fed from an async enumerable.</Description>
+        <Copyright>© 2020 247GRAD</Copyright>
+        <PackageProjectUrl>https://github.com/247GRAD/xamarin-collections-consuming</PackageProjectUrl>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <PackageIcon>Static/package.jpg</PackageIcon>
+        <RepositoryUrl>https://github.com/247GRAD/xamarin-collections-consuming</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>xamarin;collection;observable;async;enumerable;portable</PackageTags>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Xamarin.Forms" Version="4.8.0.1560" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="Static/package.jpg">
+            <PackagePath>Static/package.jpg</PackagePath>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Examples\ConsumeApi.xaml" />
+      <None Include="Examples\ConsumeApi.xaml">
+        <SubType>Designer</SubType>
+        <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      </None>
+      <Compile Remove="Examples\ConsumeApi.xaml.cs" />
+      <None Include="Examples\ConsumeApi.xaml.cs">
+        <DependentUpon>ConsumeApi.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </None>
+      <EmbeddedResource Remove="Examples\UpdateRequest.xaml" />
+      <None Include="Examples\UpdateRequest.xaml">
+        <SubType>Designer</SubType>
+        <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      </None>
+      <Compile Remove="Examples\UpdateRequest.xaml.cs" />
+      <None Include="Examples\UpdateRequest.xaml.cs">
+        <DependentUpon>UpdateRequest.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </None>
+    </ItemGroup>
+</Project>
